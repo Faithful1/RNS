@@ -5,6 +5,8 @@ project_id    = "dgcp-sandbox-faithful-anere"
 # To create a load balancer please set create_loadbalancer to true
 # With this config you can create multiple frontends by adding a new config
 # in the frontend_config_map
+# The loadbalancer resource creates one load balancer and uses path matchers
+# to map each request to its frontend backend bucket.
 ############################
 
 create_loadbalancer = true
