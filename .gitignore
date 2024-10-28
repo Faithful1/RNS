@@ -1,0 +1,9 @@
+## .gitignore
+
+# terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.tfstate.lock.info
+
+kvm_secret*.tfvars
