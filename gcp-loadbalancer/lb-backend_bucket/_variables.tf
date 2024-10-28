@@ -45,3 +45,9 @@ variable "enable_versioning" {
   default     = true
   description = "value for enable_versioning. Could be either true or false."
 }
+
+variable "create_database" {
+  type        = bool
+  default     = false
+  description = "turn on or off creation of database"
+}

@@ -1,6 +1,6 @@
 .ONESHELL:
 
-VARS="../config/prod.tfvars"
+VARS="./config/prod.tfvars"
 BOLD=$(shell tput bold)
 YELLOW=$(shell tput setaf 3)
 RESET=$(shell tput sgr0)
