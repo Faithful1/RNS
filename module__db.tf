@@ -1,15 +1,15 @@
 ############################
 # DB-module:
-# To create a database that runs on postgres engine please set create_db to true
+# To create a database that runs on postgres engine, set create_db to true
 # With this config you can create multiple postgres instances by adding a new config
 # in the db_config_map
 ############################
 
 module "database" {
   source          = "./gcp-database"
-  create_database = false
+  create_database = true
 
-  project_id = "dgcp-sandbox-faithful-anere"
+  project_id = "MY_PROJECT_ID"
   stage      = "prod"
   db_version = "POSTGRES_15"
   db_instances = {
