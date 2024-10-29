@@ -60,15 +60,22 @@ Each module is located in its respective file and can be enabled by setting the 
 
 ### Enable Cloud Run:
 In the `module_cloudrun.tf` file, set:
+
 ```hcl
 create_cloudrun = true
 
 ## NOTE
-if you fail to set a project id that has no dnszone or domain existing in it you would get this error so make sure if you are testing the loadbalancer, set these three values and make sure they exist in the sprcified project
+if you fail to set a project id that has no dnszone or 
+domain existing in it you would get this error so make sure 
+if you are testing the loadbalancer, set these three values 
+and make sure they exist in the sprcified project.
 
 domain_name               = "genesis.service.rns.ai."  # Example existing frontend domain
 dnszone                   = "service-rns-ai"           # MAKE SURE THIS DNSZONE EXISTS IN THE PROJECT
-dnszone_project_id        = "MY_PROJECT_ID"            # THIS IS THE PROJECT ID OF THE DNSZONE: SEE README FOR ERROR IF THIS IS NOT SET CORRECTLY
+dnszone_project_id        = "MY_PROJECT_ID"            # THIS IS THE PROJECT ID OF THE DNSZONE: 
+                                                       # SEE README FOR ERROR IF THIS IS NOT SET CORRECTLY
+```
 
 Feel free to email me for further questions
-![alt text](image.png)
+
+![error message](./image-2.png)
