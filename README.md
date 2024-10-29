@@ -36,7 +36,8 @@ Each module is located in its respective file and can be enabled by setting the 
     - `max_concurrency`, `max_instances`, `port`: Define concurrency and port settings.
 
 ### 2. **Database Module (`module_db.tf`)**
-- **Description**: This module sets up a PostgreSQL database on GCP.
+- **Description**: 
+This module sets up a PostgreSQL instance, creates adatabase on GCP and stores all its details in secret manager.
 - **Configuration**: 
   - Enable by setting `create_database = true`.
   - Configure the following parameters:
@@ -64,21 +65,124 @@ In the `module_cloudrun.tf` file, set:
 ```hcl
 create_cloudrun = true
 
-This creates an nginx service which is accessible 
+module "cloudrun" {
+  source          = "./gcp-cloudrun"
+  create_cloudrun = true
+
+  project_id            = "MY_PROJECT_ID"
+  stage                 = "prod"
+  image_name            = "nginx"
+  container_concurrency = 100
+  container_port        = 80
+}
+
+This config would create an nginx service which is accessible 
 via the cloudrun url provided by gcp
 
+Now run `terraform init` and `terraform apply`
+```
+
+### Enable db creation:
+In the `module_d .tf` file, set:
+
+```hcl
+create_database= true
+
+module "database" {
+  source          = "./gcp-database"
+  create_database = true
+
+  project_id = "MY_PROJECT_ID"
+  stage      = "prod"
+  db_version = "POSTGRES_15"
+  db_instances = {  # This creates multiple cloud sql instances
+    "rns-prod" = {
+      db_tier                         = "db-custom-4-16384"
+      db_instance_deletion_protection = false
+      db_disk_size                    = 10
+      database_flags = [
+        {
+          name  = "max_connections",
+          value = 20
+        }
+      ]
+    }
+  }
+  google_api_list = [
+    "appengine.googleapis.com",
+    "run.googleapis.com",
+    "secretmanager.googleapis.com",
+    "sqladmin.googleapis.com",
+  ]
+}
+
+Now run `terraform init` and `terraform apply`
+```
+
+
+### Enable loadbalancer:
+In the `module_d .tf` file, set:
+
+```hcl
+create_database= true
+
+module "loadbalancer" {
+  source              = "./gcp-loadbalancer"
+  create_loadbalancer = true
+
+  project_id           = "MY_PROJECT_ID"
+  loadbalancer_name    = "https-lb-static-backend"
+  default_redirect_url = "https://www.google.com"
+
+  frontend_config_map = {
+    genesis = {
+      service_name              = "genesis"
+      environment               = "prod"
+      domain_name               = "genesis.service.rns.ai." # Example existing frontend domain
+      dnszone                   = "service-rns-ai"          # MAKE SURE THIS DNSZONE EXISTS IN THE PROJECT
+      dnszone_project_id        = "MY_PROJECT_ID"           # THIS IS THE PROJECT ID OF THE DNSZONE: SEE README FOR ERROR IF THIS IS NOT SET CORRECTLY
+      enable_cdn                = true
+      enable_versioning         = true
+      bucket_push_account_email = "faithfulanere@gmail.com"
+    }
+    exodus = {
+      service_name              = "exodus"
+      environment               = "prod"
+      domain_name               = "exodus.service.rns.ai." # Example existing frontend domain
+      dnszone                   = "service-rns-ai"         # MAKE SURE THIS DNSZONE EXISTS IN THE PROJECT
+      dnszone_project_id        = "MY_PROJECT_ID"          # THIS IS THE PROJECT ID OF THE DNSZONE: SEE README FOR ERROR IF THIS IS NOT SET CORRECTLY
+      enable_cdn                = true
+      enable_versioning         = true
+      bucket_push_account_email = "faithfulanere@gmail.com"
+    }
+  }
+}
+
+After filling in the details run `terraform init` and `terraform apply`, 
+this will create two backend buckets mapped in one load balancer in which you
+can push an angular frontend or react frontend in cloud storage bucket.
+It is then accessible via the domain name specified in the config. e.g 
+`genesis.service.rns.ai` or `genesis.service.rns.ai`
+The loadbalancer would use path based matching to map requests to the
+correct backend bucket.
+
 ## NOTE
-if you fail to set a project id that has no dnszone or 
-domain existing in it you would get this error so make sure 
-if you are testing the loadbalancer, set these three values 
-and make sure they exist in the sprcified project.
+if you fail to set a project id that has a dnszone or 
+domain existing in it you would get the error in the screenshot below
+
+set these three values and make sure they exist in the sprcified project.
+The resource will also be created if you dont have a domain to test too.
+but tf will report that an a-record needs an existing domain
+as seen in the screenshot below.
 
 domain_name               = "genesis.service.rns.ai."  # Example existing frontend domain
 dnszone                   = "service-rns-ai"           # MAKE SURE THIS DNSZONE EXISTS IN THE PROJECT
 dnszone_project_id        = "MY_PROJECT_ID"            # THIS IS THE PROJECT ID OF THE DNSZONE: 
-                                                       # SEE README FOR ERROR IF THIS IS NOT SET CORRECTLY
+                                                       # SEE BELOW FOR ERROR IF THIS IS NOT SET CORRECTLY
+                                                       # LOADBALANCER WILL STILL BE CREATED AND 
+                                                       # CAN BE VIEWED IN GCP CONSOLE
 ```
 
-Feel free to email me for further questions
-
 ![error message](./image-2.png)
+
+Feel free to email me for further questions
