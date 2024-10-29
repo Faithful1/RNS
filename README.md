@@ -64,6 +64,9 @@ In the `module_cloudrun.tf` file, set:
 ```hcl
 create_cloudrun = true
 
+This creates an nginx service which is accessible 
+via the cloudrun url provided by gcp
+
 ## NOTE
 if you fail to set a project id that has no dnszone or 
 domain existing in it you would get this error so make sure 
