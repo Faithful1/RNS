@@ -1,8 +1,9 @@
 resource "google_cloud_run_v2_service" "main" {
-  count    = var.create_cloudrun ? 1 : 0
-  name     = "${local.namespace}-${var.stage}"
-  project  = var.project_id
-  location = var.deployment_region
+  count               = var.create_cloudrun ? 1 : 0
+  name                = "${local.namespace}-${var.stage}"
+  project             = var.project_id
+  location            = var.deployment_region
+  deletion_protection = false
 
   template {
     service_account = google_service_account.main[0].email
