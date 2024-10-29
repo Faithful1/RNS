@@ -4,7 +4,7 @@ This repository contains Terraform modules for deploying Google Cloud Platform (
 
 - **Cloud Run Services**
 - **PostgreSQL Databases**
-- **Load Balancer Services**
+- **Load Balancer Service**
 
 Each module is located in its respective file and can be enabled by setting the appropriate `create_*` variable to `true`.
 
