@@ -83,7 +83,7 @@ Now run `terraform init` and `terraform apply`
 ```
 
 ### Enable db creation:
-In the `module_d .tf` file, set:
+In the `module_db .tf` file, set:
 
 ```hcl
 create_database= true
@@ -121,7 +121,7 @@ Now run `terraform init` and `terraform apply`
 
 
 ### Enable loadbalancer:
-In the `module_d .tf` file, set:
+In the `module_lb .tf` file, set:
 
 ```hcl
 create_database= true
