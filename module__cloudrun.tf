@@ -5,7 +5,7 @@
 ############################
 module "cloudrun" {
   source          = "./gcp-cloudrun"
-  create_cloudrun = false
+  create_cloudrun = true
 
   project_id            = "dgcp-sandbox-faithful-anere"
   stage                 = "prod"

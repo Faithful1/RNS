@@ -7,7 +7,7 @@
 
 module "database" {
   source          = "./gcp-database"
-  create_database = true
+  create_database = false
 
   project_id = "dgcp-sandbox-faithful-anere"
   stage      = "prod"
