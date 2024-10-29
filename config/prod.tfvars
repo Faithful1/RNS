@@ -1,4 +1,4 @@
-# project_id    = "dgcp-sandbox-faithful-anere"
+# project_id    = "YOUR_PROJECT_ID"
 
 # ############################
 # # LOAD-BALANCER:
@@ -21,20 +21,20 @@
 #         environment                = "prod"
 #         domain_name               = "genesis.service.rns.ai." # Example existing frontend domain
 #         dnszone                   = "service-rns-ai"  # MAKE SURE THIS DNSZONE EXISTS IN THE PROJECT
-#         dnszone_project_id        = "dgcp-sandbox-faithful-anere" # THIS IS THE PROJECT ID OF THE DNSZONE
+#         dnszone_project_id        = "YOUR_PROJECT_ID" # THIS IS THE PROJECT ID OF THE DNSZONE
 #         enable_cdn                   = true
 #         enable_versioning = true
-#         bucket_push_account_email = "fanere@deloitte.de"
+#         bucket_push_account_email = "faithfulanere@gmail.com"
 #     }
 #     exodus = {
 #         service_name               = "exodus"
 #         environment                = "prod"
 #         domain_name               = "exodus.service.rns.ai." # Example existing frontend domain
 #         dnszone                   = "service-rns-ai"  # MAKE SURE THIS DNSZONE EXISTS IN THE PROJECT
-#         dnszone_project_id        = "dgcp-sandbox-faithful-anere" # THIS IS THE PROJECT ID OF THE DNSZONE
+#         dnszone_project_id        = "YOUR_PROJECT_ID" # THIS IS THE PROJECT ID OF THE DNSZONE
 #         enable_cdn                   = true
 #         enable_versioning = true
-#         bucket_push_account_email = "fanere@deloitte.de"
+#         bucket_push_account_email = "faithfulanere@gmail.com"
 #     }
 # }
 
