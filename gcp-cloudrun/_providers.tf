@@ -10,6 +10,10 @@ terraform {
       source  = "google-beta"
       version = "~> 6"
     }
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 2"
+    }
   }
 
   backend "local" {}

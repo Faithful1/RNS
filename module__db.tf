@@ -15,16 +15,12 @@ module "database" {
   db_instances = {
     "rns-prod" = {
       db_tier                         = "db-custom-4-16384"
-      db_instance_deletion_protection = true
+      db_instance_deletion_protection = false
       db_disk_size                    = 10
       database_flags = [
         {
           name  = "max_connections",
           value = 20
-        },
-        {
-          name  = "shared_buffers",
-          value = "128MB"
         }
       ]
     }
