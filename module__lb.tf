@@ -16,7 +16,7 @@ module "loadbalancer" {
   default_redirect_url = "https://www.google.com"
 
   frontend_config_map = {
-    genesis = {
+    frontend-1 = {
       service_name              = "genesis"
       environment               = "prod"
       domain_name               = "genesis.service.rns.ai." # Example existing frontend domain
@@ -26,7 +26,7 @@ module "loadbalancer" {
       enable_versioning         = true
       bucket_push_account_email = "faithfulanere@gmail.com"
     }
-    exodus = {
+    frontend-2 = {
       service_name              = "exodus"
       environment               = "prod"
       domain_name               = "exodus.service.rns.ai." # Example existing frontend domain

@@ -13,7 +13,7 @@ module "database" {
   stage      = "prod"
   db_version = "POSTGRES_15"
   db_instances = {
-    "rns-prod" = {
+    "rns-db-instance-prod" = {
       db_tier                         = "db-custom-4-16384"
       db_instance_deletion_protection = false
       db_disk_size                    = 10
