@@ -124,7 +124,7 @@ Now run `terraform init` and `terraform apply`
 In the `module_lb .tf` file, set:
 
 ```hcl
-create_database= true
+create_loadbalancer= true
 
 module "loadbalancer" {
   source              = "./gcp-loadbalancer"
